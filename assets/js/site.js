@@ -143,6 +143,73 @@
       });
     }
 
+    /* Copier une valeur (ex. le lien de la motion) */
+    document.querySelectorAll('[data-copier-valeur]').forEach(function (b) {
+      var texte = b.textContent;
+      b.addEventListener('click', function () {
+        var ok = function () { b.textContent = 'Lien copié !'; setTimeout(function () { b.textContent = texte; }, 2000); };
+        if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copierValeur).then(ok, function () {});
+      });
+    });
+
+    /* ---------- Animations légères ---------- */
+    var calme = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Nombres qui défilent jusqu'à leur valeur (signataires, contributions, J-…)
+    var animerNombre = function (el) {
+      var cible = parseInt(el.dataset.compte, 10), prefixe = el.dataset.prefixe || '';
+      if (!cible || calme) return;
+      var t0 = null, duree = Math.min(1800, 600 + cible * 6);
+      var pas = function (t) {
+        if (!t0) t0 = t;
+        var p = Math.min(1, (t - t0) / duree), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefixe + Math.round(cible * e).toLocaleString('fr-FR');
+        if (p < 1) requestAnimationFrame(pas);
+      };
+      el.textContent = prefixe + '0';
+      requestAnimationFrame(pas);
+    };
+    // Barres <progress> qui se remplissent (jauge de signatures, frise du congrès)
+    var animerJauge = function (el) {
+      var cible = parseFloat(el.getAttribute('value')) || 0;
+      if (!cible || calme) return;
+      var t0 = null, duree = 1500;
+      el.value = 0;
+      var pas = function (t) {
+        if (!t0) t0 = t;
+        var p = Math.min(1, (t - t0) / duree), e = 1 - Math.pow(1 - p, 3);
+        el.value = cible * e;
+        if (p < 1) requestAnimationFrame(pas);
+      };
+      requestAnimationFrame(pas);
+    };
+
+    // Apparition au défilement : cartes, rendez-vous, étapes, titres…
+    var cibles = '.titre-section, .carte, .evenement, .carte-action, .carte-lien-externe, .liste-tribunes li, .photo, .video, .etapes-detaillees li, .voie, .encart-noir, .bloc-moderation, .liste-documents li, .faq details, .stat';
+    var elements = Array.prototype.slice.call(document.querySelectorAll(cibles)).filter(function (el) { return !el.closest('.une-congres'); });
+    // Décalage en cascade entre éléments voisins
+    var parParent = new Map();
+    elements.forEach(function (el) {
+      var p = el.parentNode, i = parParent.get(p) || 0;
+      parParent.set(p, i + 1);
+      el.classList.add('reveal');
+      el.style.setProperty('--delai', Math.min(i, 6) * 0.07 + 's');
+    });
+    var aAnimer = Array.prototype.slice.call(document.querySelectorAll('[data-compte], progress[data-anime]'));
+    var declencher = function (el) {
+      if (el.classList.contains('reveal')) el.classList.add('visible');
+      if (el.hasAttribute('data-compte')) animerNombre(el);
+      if (el.tagName === 'PROGRESS') animerJauge(el);
+    };
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entrees) {
+        entrees.forEach(function (en) { if (en.isIntersecting) { declencher(en.target); obs.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      elements.concat(aAnimer).forEach(function (el) { obs.observe(el); });
+    } else {
+      elements.concat(aAnimer).forEach(declencher);
+    }
+
     /* Mettre le message de retour d'un formulaire au premier plan */
     var alerte = document.querySelector('.alerte[tabindex]');
     if (alerte) { alerte.focus({ preventScroll: true }); }

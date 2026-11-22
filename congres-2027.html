@@ -12,9 +12,9 @@
 <meta property="og:image" content="https://www.exemple-action-syndicale.fr/assets/img/partage.png">
 <meta name="theme-color" content="#d7141a">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/style.css?v=3">
+<link rel="stylesheet" href="assets/css/style.css?v=6">
 <script src="assets/js/js-actif.js"></script>
-<script src="assets/js/site.js?v=3" defer></script>
+<script src="assets/js/site.js?v=6" defer></script>
 </head>
 <body class="page-congres"><div class="bandeau-apercu" role="note"><strong>Aperçu de travail</strong> — formulaires inactifs (ils fonctionneront une fois le site installé chez OVH) · textes marqués « Exemple » à remplacer</div>
 <a class="evitement" href="#contenu">Aller au contenu</a>
@@ -32,14 +32,15 @@
 <header class="entete">
   <div class="conteneur entete-interieur">
     <a class="marque" href="index.html" aria-label="Action Syndicale, accueil">
-      <img class="logo-as" src="assets/img/logo-action-syndicale.png" alt="Action Syndicale" width="181" height="68">
-      <img class="logo-snesup" src="assets/img/logo-snesup-fsu.png" alt="SNESUP-FSU" width="96" height="44">
+      <img class="logo-as" src="assets/img/logo-action-syndicale.png" alt="Action Syndicale" width="149" height="56">
+      <img class="logo-snesup" src="assets/img/logo-snesup-fsu.png" alt="SNESUP-FSU" width="87" height="40">
     </a>
         <button class="bouton-menu" type="button" aria-expanded="false" aria-controls="menu-principal">
       <span class="bouton-menu-icone" aria-hidden="true"></span><span>Menu</span>
     </button>
     <nav id="menu-principal" class="menu" aria-label="Navigation principale">
       <ul>
+                  <li><a href="la-tendance.html">La tendance</a></li>
                   <li><a href="actualites.html">Actualités</a></li>
                   <li><a href="article-editos-2026-11-20-un-congres-pour-rassembler.html">Édito</a></li>
                   <li><a href="contributions.html">Contributions</a></li>
@@ -66,8 +67,10 @@
       <a class="bouton bouton-contour-blanc" href="#s-impliquer">S’impliquer</a>
     </div>
     <div class="chiffres">
-      <p><strong>Dans 7 mois</strong><span>avant le congrès</span></p>      <p><strong>0</strong><span>signataire de la motion</span></p>
-      <p><strong>2</strong><span>contributions publiées</span></p>
+      <p><strong>Dans <span data-compte="7">7</span> mois</strong><span>avant le congrès</span></p>
+            <p><strong data-compte="2">2</strong><span>contributions publiées</span></p>
+    </div>
+    <div class="jauge-signatures jauge-claire jauge-large"><p class="jauge-texte"><strong data-compte="137">137</strong> signataires <span>sur un objectif de 200</span> <span class="badge-exemple">Chiffre de démonstration</span></p><progress class="jauge" max="200" value="137" data-anime aria-label="Signatures de la motion : 137 sur 200">137 sur 200</progress></div>    <div>
     </div>
   </div>
 </section>
@@ -80,14 +83,11 @@
   <div class="conteneur">
     <h2 id="titre-calendrier">Le calendrier</h2>
     <p class="aide">Dates indicatives, précisées au fil de la circulaire congrès du SNESUP-FSU.</p>
-    <ol class="etapes etapes-detaillees">
-              <li><span class="etape-num">1</span><span class="etape-quand">Déc. 2026 – fév. 2027</span><strong>Contributions</strong><span>Appel à contributions des syndiqué·es et réunions de la tendance.</span></li>
-              <li><span class="etape-num">2</span><span class="etape-quand">Mars 2027</span><strong>Rédaction de la motion</strong><span>Écriture collective de la motion d&#039;orientation Action Syndicale.</span></li>
-              <li><span class="etape-num">3</span><span class="etape-quand">Avril 2027</span><strong>Publication</strong><span>Publication des motions et campagne de signatures.</span></li>
-              <li><span class="etape-num">4</span><span class="etape-quand">Avril – mai 2027</span><strong>Votes</strong><span>Votes des syndiqué·es sur le rapport d&#039;activité et l&#039;orientation.</span></li>
-              <li><span class="etape-num">5</span><span class="etape-quand">Juin 2027</span><strong>Congrès</strong><span>Congrès d&#039;orientation du SNESUP-FSU.</span></li>
-          </ol>
-          <h3 class="sous-titre">Prochains rendez-vous</h3>
+    <div class="frise">
+      <progress class="frise-progression" max="100" value="0" data-anime aria-label="Avancement vers le congrès : 0 %">0 %</progress>
+      <p class="frise-legende">Prochaine étape : <strong>Contributions</strong> (Déc. 2026 – fév. 2027)</p>
+    </div>
+    <ol class="etapes etapes-detaillees" aria-label="Les étapes jusqu’au congrès"><li class="etape-prochaine"><span class="etape-num">1</span><span class="etape-quand">Déc. 2026 – fév. 2027 <em class="etape-statut">Prochaine étape</em></span><strong>Contributions</strong><span>Appel à contributions des syndiqué·es et réunions de la tendance.</span></li><li class="etape-a-venir"><span class="etape-num">2</span><span class="etape-quand">Mars 2027</span><strong>Rédaction de la motion</strong><span>Écriture collective de la motion d&#039;orientation Action Syndicale.</span></li><li class="etape-a-venir"><span class="etape-num">3</span><span class="etape-quand">Avril 2027</span><strong>Publication</strong><span>Publication des motions et campagne de signatures.</span></li><li class="etape-a-venir"><span class="etape-num">4</span><span class="etape-quand">Avril – mai 2027</span><strong>Votes</strong><span>Votes des syndiqué·es sur le rapport d&#039;activité et l&#039;orientation.</span></li><li class="etape-a-venir"><span class="etape-num">5</span><span class="etape-quand">Juin 2027</span><strong>Congrès</strong><span>Congrès d&#039;orientation du SNESUP-FSU.</span></li></ol>          <h3 class="sous-titre">Prochains rendez-vous</h3>
       <ul class="liste-evenements liste-evenements-grille"><li class="evenement type-reunion-de-tendance" id="ev-2026-12-10-lancement-de-la-preparation-du-congres"><div class="ev-date" aria-hidden="true"><span class="ev-jour">10</span><span class="ev-mois">déc.</span></div><div class="ev-texte"><p class="sur-titre"><span class="etiquette etiquette-claire">Réunion de tendance</span> <span class="badge-exemple" title="Texte d’exemple à remplacer">Exemple</span></p><h3>Lancement de la préparation du congrès</h3><p class="meta"><time datetime="2026-12-10">jeudi 10 décembre 2026</time> · 18 h 00 – 19 h 30 · Visioconférence (lien envoyé aux inscrit·es)</p></div></li><li class="evenement type-webinaire" id="ev-2027-01-14-webinaire-ecrire-la-motion-ensemble"><div class="ev-date" aria-hidden="true"><span class="ev-jour">14</span><span class="ev-mois">janv.</span></div><div class="ev-texte"><p class="sur-titre"><span class="etiquette etiquette-claire">Webinaire</span> <span class="badge-exemple" title="Texte d’exemple à remplacer">Exemple</span></p><h3>Webinaire : écrire la motion ensemble</h3><p class="meta"><time datetime="2027-01-14">jeudi 14 janvier 2027</time> · 12 h 30 – 13 h 30 · En ligne</p></div></li><li class="evenement type-echeance" id="ev-2027-01-31-date-limite-des-contributions"><div class="ev-date" aria-hidden="true"><span class="ev-jour">31</span><span class="ev-mois">janv.</span></div><div class="ev-texte"><p class="sur-titre"><span class="etiquette etiquette-claire">Échéance</span> <span class="badge-exemple" title="Texte d’exemple à remplacer">Exemple</span></p><h3>Date limite des contributions pour la motion</h3><p class="meta"><time datetime="2027-01-31">dimanche 31 janvier 2027</time> · Toute la journée</p></div></li><li class="evenement type-reunion-de-tendance" id="ev-2027-02-06-journee-nationale-de-la-tendance"><div class="ev-date" aria-hidden="true"><span class="ev-jour">6</span><span class="ev-mois">févr.</span></div><div class="ev-texte"><p class="sur-titre"><span class="etiquette etiquette-claire">Réunion de tendance</span> <span class="badge-exemple" title="Texte d’exemple à remplacer">Exemple</span></p><h3>Journée nationale de la tendance</h3><p class="meta"><time datetime="2027-02-06">samedi 6 février 2027</time> · 10 h 00 – 16 h 30 · Paris (lieu précisé aux inscrit·es)</p></div></li></ul>
       </div>
 </section>
@@ -133,7 +133,7 @@
     </div>
     <div>
                 <p class="avis-apercu">Aperçu : l’envoi est désactivé sur cette version de démonstration.</p><form class="formulaire formulaire-encadre" method="post" action="congres-2027.html#signer" novalidate>
-        <div class="piege" aria-hidden="true"><label>Ne pas remplir <input type="text" name="site_web" tabindex="-1" autocomplete="off"></label></div><input type="hidden" name="horodatage" value="1795356243.32dd12a66b742e07">        <div class="champs-2">
+        <div class="piege" aria-hidden="true"><label>Ne pas remplir <input type="text" name="site_web" tabindex="-1" autocomplete="off"></label></div><input type="hidden" name="horodatage" value="1795357555.e0df1c014b8bc55b">        <div class="champs-2">
           <p><label for="s-prenom">Prénom *</label><input id="s-prenom" name="prenom" required autocomplete="given-name" value=""></p>
           <p><label for="s-nom">Nom *</label><input id="s-nom" name="nom" required autocomplete="family-name" value=""></p>
         </div>
@@ -153,7 +153,7 @@
 <section id="signataires" class="section section-creme" aria-labelledby="titre-signataires">
   <div class="conteneur">
     <div class="titre-section"><h2 id="titre-signataires">Les signataires <span class="compteur">0</span></h2></div>
-          <p>Les premières signatures apparaîtront ici. <a href="#signer">Soyez parmi les premier·es à signer.</a></p>
+    <div class="jauge-signatures "><p class="jauge-texte"><strong data-compte="137">137</strong> signataires <span>sur un objectif de 200</span> <span class="badge-exemple">Chiffre de démonstration</span></p><progress class="jauge" max="200" value="137" data-anime aria-label="Signatures de la motion : 137 sur 200">137 sur 200</progress></div>          <p>Les premières signatures apparaîtront ici. <a href="#signer">Soyez parmi les premier·es à signer.</a></p>
       </div>
 </section>
 
@@ -208,6 +208,7 @@
     <nav aria-label="Plan du site">
       <h2>Le site</h2>
       <ul>
+        <li><a href="la-tendance.html">La tendance</a></li>
         <li><a href="actualites.html">Actualités</a></li>
         <li><a href="contributions.html">Contributions</a></li>
         <li><a href="agenda.html">Agenda</a></li>
