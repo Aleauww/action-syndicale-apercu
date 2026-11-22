@@ -123,6 +123,32 @@
       f.addEventListener('submit', function (e) { if (!window.confirm(f.dataset.confirmer)) e.preventDefault(); });
     });
 
+    /* Barre de mise en forme des textes (administration) */
+    document.querySelectorAll('.editeur-barre').forEach(function (barre) {
+      var t = document.getElementById(barre.dataset.pour);
+      if (!t) return;
+      barre.addEventListener('click', function (e) {
+        var b = e.target.closest('button[data-md]');
+        if (!b) return;
+        var d = t.selectionStart, f = t.selectionEnd, sel = t.value.slice(d, f), avant = t.value.slice(0, d), apres = t.value.slice(f), ins = sel;
+        var debutLigne = d === 0 || avant.slice(-1) === '\n' ? '' : '\n';
+        switch (b.dataset.md) {
+          case 'gras': ins = '**' + (sel || 'texte en gras') + '**'; break;
+          case 'italique': ins = '*' + (sel || 'texte en italique') + '*'; break;
+          case 'intertitre': ins = debutLigne + '\n## ' + (sel || 'Intertitre') + '\n\n'; break;
+          case 'liste': ins = debutLigne + (sel ? sel.split('\n').map(function (l) { return '- ' + l; }).join('\n') : '- premier point\n- deuxième point') + '\n'; break;
+          case 'citation': ins = debutLigne + '> ' + (sel || 'citation') + '\n'; break;
+          case 'lien':
+            var url = window.prompt('Adresse du lien (https://…)', 'https://');
+            if (!url) return;
+            ins = '[' + (sel || 'texte du lien') + '](' + url + ')'; break;
+        }
+        t.value = avant + ins + apres;
+        t.focus();
+        t.selectionStart = t.selectionEnd = d + ins.length;
+      });
+    });
+
     /* Bouton « Copier » (administration) */
     document.querySelectorAll('[data-copier]').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -241,7 +267,7 @@
 
     // Apparition au défilement : cartes, rendez-vous, étapes, titres…
     var cibles = '.titre-section, .proposition, .profil-carte, .carte-signataires, .carte, .evenement, .carte-action, .carte-lien-externe, .liste-tribunes li, .photo, .video, .etapes-detaillees li, .voie, .encart-noir, .bloc-moderation, .liste-documents li, .faq details, .stat';
-    var elements = Array.prototype.slice.call(document.querySelectorAll(cibles)).filter(function (el) { return !el.closest('.une-congres'); });
+    var elements = document.querySelector('.admin') ? [] : Array.prototype.slice.call(document.querySelectorAll(cibles)).filter(function (el) { return !el.closest('.une-congres'); });
     // Décalage en cascade entre éléments voisins
     var parParent = new Map();
     elements.forEach(function (el) {
