@@ -656,6 +656,88 @@ td { padding: .65rem .75rem; border-bottom: 1px solid var(--ligne); vertical-ali
 .bloc-visuel { margin-top: 2.5rem; align-items: center; }
 @media (max-width: 600px) { .carte-nom { font-size: 17px; } .carte-nombre { font-size: 17px; } .carte-legende { font-size: 18px; } }
 
+/* =========================================================
+   FONDS CLAIRS — blanc cassé à la place du noir
+   (supprimer ce bloc pour revenir aux fonds noirs)
+   ========================================================= */
+:root { --blanc-casse: #faf7f1; }
+
+/* Barre du haut */
+.barre-haute { background: var(--creme); color: var(--gris); border-bottom: 1px solid var(--ligne); }
+.barre-haute a { color: var(--noir); }
+.barre-haute a:hover { color: var(--rouge); }
+
+/* Grand bandeau d'ouverture (accueil et page Congrès) */
+.une-congres { background: var(--blanc-casse); color: var(--encre); }
+.une-congres::before { opacity: .07; }
+.une-congres h1 { color: var(--noir); }
+.une-congres .surligne { color: var(--rouge); }
+.une-congres .chapo-blanc { color: #3e3a35; }
+.une-congres .rebours { color: var(--gris); }
+.une-congres .fil-clair, .une-congres .fil-clair a { color: var(--gris); }
+.une-congres :focus-visible { outline-color: var(--rouge); }
+.une-congres .bouton-contour-blanc { background: var(--blanc); color: var(--noir); border-color: var(--noir); }
+.une-congres .bouton-contour-blanc:hover { background: var(--noir); color: var(--blanc); }
+.chiffres { border-top-color: var(--ligne); }
+.chiffres strong { color: var(--noir); }
+.chiffres p > span { color: var(--gris); }
+.etapes-compactes { background: var(--blanc); border: 2px solid var(--noir); box-shadow: 8px 8px 0 var(--creme-fonce); }
+.etapes li::before { background: var(--ligne); }
+.etape-quand { color: var(--gris); }
+.etapes-compactes .etape-passee .etape-num { background: var(--noir) !important; }
+.jauge-claire .jauge-texte strong { color: var(--rouge); }
+.jauge-claire .jauge-texte span { color: var(--gris); }
+.jauge-claire .jauge { border-color: var(--noir); background: var(--blanc); }
+.jauge-claire .jauge::-webkit-progress-bar { background: var(--blanc); }
+
+/* Sections autrefois noires (propositions, photos & vidéos) */
+.section-noire { background: var(--blanc-casse); color: var(--encre); }
+.section-noire .meta, .section-noire .aide-claire { color: var(--gris); }
+.section-noire .lien-fleche { color: var(--bleu); }
+.section-noire :focus-visible { outline-color: var(--rouge); }
+.section-propositions .chapo { color: #3e3a35; }
+.proposition { background: var(--blanc); border: 1px solid var(--ligne); border-top: 6px solid var(--jaune); }
+.proposition:nth-child(4n+2) { border-top-color: var(--rouge); }
+.proposition:nth-child(4n+3) { border-top-color: var(--vert); }
+.proposition:nth-child(4n+4) { border-top-color: var(--bleu); }
+.proposition-num { color: rgba(25, 25, 23, .1); }
+.proposition-picto { color: var(--noir); }
+.proposition:nth-child(4n+2) .proposition-picto { color: var(--rouge); }
+.proposition:nth-child(4n+3) .proposition-picto { color: var(--vert-fonce); }
+.proposition:nth-child(4n+4) .proposition-picto { color: var(--bleu); }
+.proposition h3 { color: var(--noir); }
+.proposition-texte p { color: #3e3a35; }
+.photo { background: var(--creme-fonce); }
+
+/* Encadrés (appel à contribution, faire signer) */
+.encart-noir, .faire-signer { background: var(--blanc); color: var(--encre); border: 2px solid var(--noir); border-top: 6px solid transparent; border-image: none; box-shadow: inset 0 6px 0 0 transparent; position: relative; }
+.encart-noir::before, .faire-signer::before { content: ""; position: absolute; left: -2px; right: -2px; top: -6px; height: 6px; background: var(--bandes); }
+.faire-signer p { color: #3e3a35; }
+.faire-signer .bouton-blanc, .faire-signer .bouton-noir { border-color: var(--noir); }
+.faire-signer .visuel-partage .aide { color: var(--gris); }
+
+/* Sommaire collant de la page Congrès */
+.sommaire-congres { background: var(--blanc); }
+.sommaire-congres a { color: var(--noir); }
+.sommaire-congres a:hover { background: var(--jaune); color: var(--noir); }
+
+/* En-tête des éditos */
+.entete-edito { background: var(--blanc-casse); color: var(--encre); }
+.entete-edito .fil a, .entete-edito .meta { color: var(--gris); }
+.entete-edito .chapo { color: #3e3a35; }
+
+/* Cartes */
+.carte-image { background: var(--creme); }
+
+/* Pied de page */
+.pied { background: var(--creme); color: #3e3a35; }
+.pied h2 { color: var(--noir); }
+.pied a { color: var(--noir); }
+.pied a:hover { color: var(--rouge); }
+.pied-legal { border-top-color: var(--ligne); }
+.slogan { color: var(--noir); }
+.logo-pied { border: 1px solid var(--ligne); }
+
 /* Aperçu en ligne uniquement */
 .bandeau-apercu { background: var(--jaune); color: var(--noir); font-size: .85rem; text-align: center; padding: .45rem 1rem; line-height: 1.35; }
 .avis-apercu { background: var(--jaune); color: var(--noir); font-weight: 700; padding: .6rem .9rem; margin-bottom: 1rem; }
