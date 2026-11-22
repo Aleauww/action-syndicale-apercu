@@ -152,6 +152,61 @@
       });
     });
 
+    /* ---------- Visuel à partager (dessiné dans le navigateur) ---------- */
+    document.querySelectorAll('[data-visuel]').forEach(function (bloc) {
+      var canvas = bloc.querySelector('canvas'), ctx = canvas.getContext('2d');
+      var charger = function (src) { return new Promise(function (ok) { var i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; }); };
+      var polices = (document.fonts && document.fonts.load) ? Promise.all([document.fonts.load('400 100px Anton'), document.fonts.load('700 40px "Source Sans 3"')]) : Promise.resolve();
+      Promise.all([charger(bloc.dataset.logo), charger(bloc.dataset.logoSnesup), polices]).then(function (r) {
+        var logo = r[0], logoS = r[1], W = 1080;
+        ctx.fillStyle = '#191917'; ctx.fillRect(0, 0, W, W);
+        // bande diagonale bleue, comme sur le site
+        ctx.save(); ctx.globalAlpha = .25; ctx.fillStyle = '#0e62a7';
+        ctx.beginPath(); ctx.moveTo(760, 0); ctx.lineTo(W, 0); ctx.lineTo(W, W); ctx.lineTo(520, W); ctx.closePath(); ctx.fill(); ctx.restore();
+        // bandes de couleur en haut
+        ['#e2c634', '#d72a36', '#139d54', '#0e62a7'].forEach(function (c, i) { ctx.fillStyle = c; ctx.fillRect(i * 270, 0, 270, 16); });
+        if (logo) { var lw = 420, lh = lw * logo.height / logo.width; ctx.drawImage(logo, 80, 90, lw, lh); }
+        ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'alphabetic';
+        var titre = (bloc.dataset.titre || '').toUpperCase();
+        var taille = 210; ctx.font = '400 ' + taille + 'px Anton, Impact, sans-serif';
+        while (ctx.measureText(titre).width > 920 && taille > 80) { taille -= 6; ctx.font = '400 ' + taille + 'px Anton, Impact, sans-serif'; }
+        // surlignage jaune derrière le titre
+        var tw = ctx.measureText(titre).width;
+        ctx.save(); ctx.translate(80, 0); ctx.transform(1, 0, -0.14, 1, 0, 0);
+        ctx.fillStyle = '#e2c634'; ctx.fillRect(-6, 560 - taille * .82, tw + 40, taille * .98); ctx.restore();
+        ctx.fillStyle = '#191917'; ctx.fillText(titre, 96, 560);
+        // sous-titre
+        ctx.fillStyle = '#ffffff'; ctx.font = '400 82px Anton, Impact, sans-serif';
+        var mots = (bloc.dataset.soustitre || '').toUpperCase().split(' '), ligne = '', y = 680, lignes = [];
+        mots.forEach(function (m) { var t = ligne ? ligne + ' ' + m : m; if (ctx.measureText(t).width > 900) { lignes.push(ligne); ligne = m; } else ligne = t; });
+        if (ligne) lignes.push(ligne);
+        lignes.forEach(function (l) { ctx.fillText(l, 80, y); y += 92; });
+        // motif des quatre bandes
+        var by = y - 20;
+        ctx.fillStyle = '#139d54'; ctx.fillRect(80 + 130, by, 200, 34);
+        ctx.fillStyle = '#e2c634'; ctx.fillRect(80, by + 8, 140, 26);
+        ctx.fillStyle = '#0e62a7'; ctx.fillRect(80 + 230, by + 36, 110, 20);
+        ctx.fillStyle = '#d72a36'; ctx.fillRect(80 + 24, by + 30, 196, 28);
+        // mention et adresse
+        ctx.fillStyle = '#e3ddd5'; ctx.font = '600 36px "Source Sans 3", sans-serif';
+        ctx.fillText(bloc.dataset.mention || '', 80, 990);
+        if (bloc.dataset.site) { ctx.fillStyle = '#e2c634'; ctx.font = '800 34px "Source Sans 3", sans-serif'; ctx.fillText(bloc.dataset.site, 80, 1036); }
+        if (logoS) { var sw = 200, sh = sw * logoS.height / logoS.width; ctx.fillStyle = '#ffffff'; ctx.fillRect(W - sw - 100, 90, sw + 40, sh + 30); ctx.drawImage(logoS, W - sw - 80, 105, sw, sh); }
+      });
+      var nom = 'visuel-' + (bloc.dataset.titre || 'action-syndicale').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-') + '-action-syndicale.png';
+      var avecImage = function (f) { canvas.toBlob(function (b) { if (b) f(b); }, 'image/png'); };
+      bloc.querySelector('[data-visuel-telecharger]').addEventListener('click', function () {
+        avecImage(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nom; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000); });
+      });
+      var bp = bloc.querySelector('[data-visuel-partager]');
+      if (bp && navigator.canShare && window.File) {
+        try { if (navigator.canShare({ files: [new File([''], 'test.png', { type: 'image/png' })] })) bp.hidden = false; } catch (e) {}
+        bp.addEventListener('click', function () {
+          avecImage(function (b) { navigator.share({ files: [new File([b], nom, { type: 'image/png' })], text: (bloc.dataset.titre || '') + ' ' + (bloc.dataset.soustitre || '') }).catch(function () {}); });
+        });
+      }
+    });
+
     /* ---------- Animations légères ---------- */
     var calme = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -185,7 +240,7 @@
     };
 
     // Apparition au défilement : cartes, rendez-vous, étapes, titres…
-    var cibles = '.titre-section, .carte, .evenement, .carte-action, .carte-lien-externe, .liste-tribunes li, .photo, .video, .etapes-detaillees li, .voie, .encart-noir, .bloc-moderation, .liste-documents li, .faq details, .stat';
+    var cibles = '.titre-section, .proposition, .profil-carte, .carte-signataires, .carte, .evenement, .carte-action, .carte-lien-externe, .liste-tribunes li, .photo, .video, .etapes-detaillees li, .voie, .encart-noir, .bloc-moderation, .liste-documents li, .faq details, .stat';
     var elements = Array.prototype.slice.call(document.querySelectorAll(cibles)).filter(function (el) { return !el.closest('.une-congres'); });
     // Décalage en cascade entre éléments voisins
     var parParent = new Map();

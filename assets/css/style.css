@@ -597,6 +597,65 @@ td { padding: .65rem .75rem; border-bottom: 1px solid var(--ligne); vertical-ali
 @keyframes battement { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 @keyframes fleche { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
 
+/* =========================================================
+   Illustrations, propositions, profils, carte, visuel
+   ========================================================= */
+.illustration { display: block; width: 100%; height: 100%; }
+.carte-image .illustration { transition: transform .4s; }
+.carte-lien:hover .carte-image .illustration { transform: scale(1.04); }
+.picto { width: 1.5em; height: 1.5em; flex-shrink: 0; }
+
+/* La motion en N propositions */
+.section-propositions .chapo { color: #e3ddd5; }
+.propositions { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+.proposition { position: relative; background: #24231f; padding: 1.4rem 1.25rem 1.25rem; border-top: 6px solid var(--jaune); }
+.proposition:nth-child(4n+2) { border-top-color: var(--rouge); }
+.proposition:nth-child(4n+3) { border-top-color: var(--vert); }
+.proposition:nth-child(4n+4) { border-top-color: var(--bleu); }
+.proposition-num { position: absolute; top: .6rem; right: .9rem; font-family: var(--titre); font-size: 2.6rem; line-height: 1; color: rgba(255,255,255,.12); }
+.proposition-picto { width: 44px; height: 44px; color: var(--jaune); margin-bottom: .75rem; }
+.proposition h3 { font-size: 1.3rem; color: var(--blanc); margin-bottom: .5rem; }
+.proposition-texte p { margin: 0; color: #d8d2ca; font-size: .98rem; line-height: 1.5; }
+
+/* Entrée par profil */
+.profils { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.profil-carte { display: grid; grid-template-columns: 56px 1fr; grid-template-rows: auto auto; column-gap: 1rem; align-items: center; padding: 1.1rem 1.25rem; border: 3px solid var(--noir); text-decoration: none; background: var(--blanc); box-shadow: 5px 5px 0 var(--jaune); transition: transform .12s, box-shadow .12s, background .15s; }
+.profil-carte:nth-child(2) { box-shadow: 5px 5px 0 var(--rouge); }
+.profil-carte:nth-child(3) { box-shadow: 5px 5px 0 var(--vert); }
+.profil-carte:nth-child(4) { box-shadow: 5px 5px 0 var(--bleu); }
+.profil-carte:hover { transform: translate(-2px, -2px); background: var(--creme); }
+.profil-picto { grid-row: span 2; width: 52px; height: 52px; color: var(--noir); }
+.profil-je { font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--gris); align-self: end; }
+.profil-carte strong { font-family: var(--titre); font-weight: 400; text-transform: uppercase; font-size: 1.3rem; line-height: 1.05; align-self: start; }
+.entete-profil-titre { display: flex; align-items: center; gap: 1rem; }
+.entete-profil-titre h1 { margin: 0; }
+.entete-profil-picto { width: 64px; height: 64px; color: var(--rouge); }
+
+/* Carte des signataires */
+.signataires-haut { display: grid; gap: 2rem; align-items: start; margin-bottom: 2rem; }
+@media (min-width: 900px) { .signataires-haut { grid-template-columns: 1fr 1.1fr; } }
+.carte-signataires { background: var(--blanc); padding: 1rem; border: 2px solid var(--ligne); }
+.carte-france { display: block; width: 100%; height: auto; max-height: 560px; }
+.carte-terre { fill: var(--creme-fonce); stroke: var(--blanc); stroke-width: 2; stroke-linejoin: round; }
+.carte-academie circle { fill: var(--rouge); fill-opacity: .88; stroke: var(--blanc); stroke-width: 2; }
+.carte-vide circle { fill: #b9b0a3; fill-opacity: 1; stroke: none; }
+.carte-nombre { font: 800 12px var(--texte); fill: var(--blanc); text-anchor: middle; }
+.carte-nom { font: 700 10.5px var(--texte); fill: var(--noir); text-anchor: middle; paint-order: stroke; stroke: var(--blanc); stroke-width: 3px; }
+.carte-legende { font: 800 12px var(--texte); fill: var(--gris); letter-spacing: .06em; text-transform: uppercase; }
+.carte-liste { margin-top: .75rem; }
+.carte-liste summary { cursor: pointer; font-weight: 800; }
+.carte-liste ul { list-style: none; padding: 0; margin: .5rem 0 0; columns: 2 160px; column-gap: 1.5rem; }
+.carte-liste li { display: flex; justify-content: space-between; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid var(--creme-fonce); break-inside: avoid; font-size: .95rem; }
+
+/* Visuel à partager */
+.visuel-partage { max-width: 420px; }
+.visuel-canvas { display: block; width: 100%; height: auto; aspect-ratio: 1; background: var(--noir); box-shadow: 8px 8px 0 var(--jaune); margin-bottom: 1.25rem; }
+.visuel-actions { display: flex; flex-wrap: wrap; gap: .9rem; }
+.faire-signer .visuel-partage .aide { color: #bdb6ad; }
+.faire-signer-visuel { margin-top: 1.75rem; }
+.bloc-visuel { margin-top: 2.5rem; align-items: center; }
+@media (max-width: 600px) { .carte-nom { font-size: 17px; } .carte-nombre { font-size: 17px; } .carte-legende { font-size: 18px; } }
+
 /* Aperçu en ligne uniquement */
 .bandeau-apercu { background: var(--jaune); color: var(--noir); font-size: .85rem; text-align: center; padding: .45rem 1rem; line-height: 1.35; }
 .avis-apercu { background: var(--jaune); color: var(--noir); font-weight: 700; padding: .6rem .9rem; margin-bottom: 1rem; }
